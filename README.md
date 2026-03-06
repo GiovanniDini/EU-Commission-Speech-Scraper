@@ -40,6 +40,12 @@ Run the scraper with command-line arguments:
 python scraper.py --commissioner <code> --commissioner-name "<name>" --start-date <DD-MM-YYYY> --end-date <DD-MM-YYYY> --policy-area "<policy area>" --headed
 ```
 
+Or use the parallel runner to scrape multiple commissioners at once:
+
+```powershell
+python run_parallel.py --include "Ursula von der Leyen" "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Climate action" --headed
+```
+
 **Arguments:**
 - `--commissioner`: Commissioner code (required)
 - `--commissioner-name`: Commissioner name (required)
@@ -47,6 +53,7 @@ python scraper.py --commissioner <code> --commissioner-name "<name>" --start-dat
 - `--end-date`: End date (DD-MM-YYYY)
 - `--policy-area`: Policy area name (optional, see list below)
 - `--headed`: Run browser in headed mode (optional, default is headless)
+- `--include`: (run_parallel.py only) List of commissioner names to include
 
 **Example:**
 ```powershell
@@ -73,6 +80,42 @@ Ursula von der Leyen_881/
             881_p1_2.pdf
             ...
 ```
+
+---
+
+## Commissioners
+
+Supported commissioners (use the exact name and code):
+
+| Code   | Name                    |
+|--------|------------------------|
+| 881    | Ursula von der Leyen   |
+| 166    | Valdis Dombrovskis     |
+| 183    | Maroš Šefčovič         |
+| 982    | Dubravka Šuica         |
+| 998    | Olivér Várhelyi        |
+| 1881   | Wopke Hoekstra         |
+| 2086   | Maria Luís Albuquerque |
+| 2087   | Magnus Brunner         |
+| 2088   | Raffaele Fitto         |
+| 2089   | Christophe Hansen      |
+| 2090   | Dan Jørgensen          |
+| 2091   | Kaja Kallas            |
+| 2092   | Andrius Kubilius       |
+| 2093   | Marta Kos              |
+| 2094   | Costas Kadis           |
+| 2095   | Hadja Lahbib           |
+| 2096   | Roxana Mînzatu         |
+| 2097   | Michael McGrath        |
+| 2098   | Glenn Micallef         |
+| 2099   | Teresa Ribera          |
+| 2100   | Jessika Roswall        |
+| 2101   | Stéphane Séjourné      |
+| 2102   | Jozef Síkela           |
+| 2103   | Piotr Serafin          |
+| 2104   | Apostolos Tzitzikostas |
+| 2105   | Henna Virkkunen        |
+| 2106   | Ekaterina Zaharieva    |
 
 ---
 
