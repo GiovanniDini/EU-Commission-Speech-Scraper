@@ -1,0 +1,199 @@
+# Instructions for Non-Coders: Setting Up and Running the European Commission Press Corner Scraper
+
+---
+
+## 1. Install Python
+
+- Go to [python.org/downloads](https://www.python.org/downloads/)
+- Download the latest Python version for Windows.
+- Run the installer. **Check the box "Add Python to PATH"** before clicking "Install Now".
+
+---
+
+## 2. Install Google Chrome
+
+- Go to [google.com/chrome](https://www.google.com/chrome/)
+- Download and install Chrome if you don’t have it.
+
+---
+
+## 3. Install ChromeDriver
+
+- Go to [chromedriver.chromium.org/downloads](https://chromedriver.chromium.org/downloads)
+- Download the version that matches your Chrome browser.
+- Extract the file.
+- Move the `chromedriver.exe` file to the same folder as your scraper files (or note its location).
+
+---
+
+## 4. Download the Scraper Files
+
+- Download or copy all the files (`scraper.py`, `run_parallel.py`, etc.) into a folder on your computer (for example, `C:\Users\<yourname>\Desktop\scraper`).
+
+---
+
+## 5. Install Git Bash
+
+- Download Git Bash from [gitforwindows.org](https://gitforwindows.org/) and install it.
+- Open Git Bash from your Start menu.
+
+---
+
+## 6. Open Git Bash and Navigate to Your Scraper Folder
+
+- In Git Bash, type:
+  ```bash
+  cd "/c/Users/<yourname>/Desktop/scraper"
+  ```
+  Replace `<yourname>` with your Windows username.
+
+---
+
+## 7. Install Python Packages
+
+- In Git Bash, type:
+  ```bash
+  pip install selenium requests
+  ```
+
+---
+
+## 8. Run the Scraper
+
+- To run for a single commissioner, type:
+  ```bash
+  python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
+  ```
+- To run for multiple commissioners in parallel, type:
+  ```bash
+  python run_parallel.py --include "Ursula von der Leyen" "Henna Virkkunen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
+  ```
+
+---
+
+## 9. Find Your Downloads
+
+- After the script finishes, look in your scraper folder for new directories named after commissioners and policy areas.
+- PDFs will be inside these folders.
+
+---
+
+## 10. Troubleshooting
+
+- If you see errors about ChromeDriver, make sure `chromedriver.exe` is in your scraper folder.
+- If you see errors about Python, make sure you installed Python and added it to PATH.
+- If you see errors about missing packages, repeat step 7.
+
+---
+
+## Supported Commissioners
+
+| Code   | Name                    |
+|--------|------------------------|
+| 881    | Ursula von der Leyen   |
+| 166    | Valdis Dombrovskis     |
+| 183    | Maroš Šefčovič         |
+| 982    | Dubravka Šuica         |
+| 998    | Olivér Várhelyi        |
+| 1881   | Wopke Hoekstra         |
+| 2086   | Maria Luís Albuquerque |
+| 2087   | Magnus Brunner         |
+| 2088   | Raffaele Fitto         |
+| 2089   | Christophe Hansen      |
+| 2090   | Dan Jørgensen          |
+| 2091   | Kaja Kallas            |
+| 2092   | Andrius Kubilius       |
+| 2093   | Marta Kos              |
+| 2094   | Costas Kadis           |
+| 2095   | Hadja Lahbib           |
+| 2096   | Roxana Mînzatu         |
+| 2097   | Michael McGrath        |
+| 2098   | Glenn Micallef         |
+| 2099   | Teresa Ribera          |
+| 2100   | Jessika Roswall        |
+| 2101   | Stéphane Séjourné      |
+| 2102   | Jozef Síkela           |
+| 2103   | Piotr Serafin          |
+| 2104   | Apostolos Tzitzikostas |
+| 2105   | Henna Virkkunen        |
+| 2106   | Ekaterina Zaharieva    |
+
+---
+
+## Supported Policy Areas
+
+- Agriculture and rural development
+- Animal Welfare
+- Antitrust
+- Artifical intelligence
+- Banking and financial services
+- Borders
+- Brexit
+- Budget
+- Business and industry
+- Climate action
+- Cohesion Policy
+- Commission Juncker 2014 -2019
+- Competition
+- Competitiveness
+- Consumers
+- Culture and media
+- Customs
+- Cybersecurity
+- Defence
+- Democracy
+- Demography
+- Digital economy and society
+- Disinformation
+- EU enlargement
+- Economy, finance and the euro
+- Education and training
+- Employment and social affairs
+- Energy
+- Environment
+- Equality
+- European Green Deal
+- European neighbourhood policy
+- Food safety
+- Foreign affairs and security policy
+- General information
+- Global Gateway
+- Home affairs
+- Housing
+- Humanitarian aid and civil protection
+- Institutional affairs
+- Interinstitutional relations and foresight
+- International partnerships
+- Justice and fundamental rights
+- Maritime affairs and fisheries
+- Mediterranean
+- Mergers
+- Middle East
+- Migration and asylum
+- New European Bauhaus
+- NextGenerationEU
+- Presidency
+- Public health
+- Recovery and Resilience Facility
+- Reforms
+- Research and innovation
+- Security
+- Single market
+- Space
+- Sport
+- State aid
+- State of the Union
+- Taxation
+- Technology
+- Trade
+- Transport
+- UN Climate Change Conference (COP)
+- Ukraine
+- Vaccines
+- Youth
+
+---
+
+## License
+
+MIT License
