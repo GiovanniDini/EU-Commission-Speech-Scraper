@@ -1,0 +1,630 @@
+If the scraper doesn't work, here's how I built mine on VS Code, with Co-pilot running ChatGPT-4.1 . 0X
+
+
+Page: https://ec.europa.eu/commission/presscorner/home/en
+Cookie banner to disable or select accept only essential cookies. 
+
+<div class="wt-cck--wrapper">
+        <div class="wt-cck--content">
+          <div class="wt-cck--content-icon">
+              <svg aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="wt-icon--l wt-icon--primary" width="48" height="48" viewBox="0 0 48 48" fill="currentColor"><path fill-rule="evenodd" d="M42 3H6C4.35 3 3 4.35 3 6v36c0 1.65 1.35 3 3 3h36c1.65 0 3-1.35 3-3V6c0-1.65-1.35-3-3-3M21.93 13.38a2.31 2.31 0 0 1 2.1-1.41c.6 0 1.17.24 1.59.66s.66.99.66 1.59c0 .45-.12.87-.39 1.26-.24.36-.6.66-1.02.84s-.87.21-1.29.12c-.45-.09-.84-.3-1.14-.63-.3-.3-.54-.72-.63-1.14s-.03-.9.12-1.29M30 36H18v-3h4.5v-9h-3v-3h6v12H30z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="wt-cck--content-content"><p class="wt-cck--content-notice">This site uses cookies. Visit our <a href="https://commission.europa.eu/cookies-policy_en" target="_self" class="wt-ecl-link">cookies policy page</a> or click the link in any footer for more information and to change your preferences.</p></div>
+        </div>
+        <div class="wt-cck--actions">
+          <a href="#accept" class="wt-ecl-button wt-ecl-button--primary wt-cck--actions-button">Accept all cookies</a>
+          <a href="#refuse" class="wt-ecl-button wt-ecl-button--primary wt-cck--actions-button">Accept only essential cookies</a>
+        </div>
+      </div>
+
+1. Select From and type date.
+<input _ngcontent-ng-c796800312="" id="datepicker1" ecltextinput="" ecldatepicker="" formcontrolname="datepickerAfter" format="DD-MM-YYYY" eclsize="l" placeholder="DD-MM-YYYY" class="ng-valid ecl-datepicker__field ecl-text-input ecl-text-input--l ng-touched ng-dirty" type="text" fdprocessedid="4e0o2" aria-label="Use the arrow keys to pick a date">
+
+2. Select "To" (datepicker2) and type date.
+<input _ngcontent-ng-c796800312="" id="datepicker2" ecltextinput="" ecldatepicker="" formcontrolname="datepickerBefore" format="DD-MM-YYYY" eclsize="l" placeholder="DD-MM-YYYY" class="ng-touched ng-dirty ng-valid ecl-datepicker__field ecl-text-input ecl-text-input--l" type="text" fdprocessedid="5zxxmy7" aria-label="Use the arrow keys to pick a date">
+
+
+3. Click More Criteria:
+<a _ngcontent-ng-c796800312="" ecllink="" class="ecl-link ecl-link--icon"><svg aria-hidden="true" focusable="false" class="ecl-icon--xs ecl-icon--rotate-180 ecl-icon ecl-link__icon"><!----><use xlink:href="assets/images/ecl/ec/icons/sprites/icons.svg#corner-arrow"></use></svg>&nbsp;More criteria</a>
+
+
+4. Document type: 1st of 3 select menus that display the word "select". Code should choose the first of these for document select and tick the boxes for "speeches" and "statements"
+
+4.1 first select document type: <button type="button" class="ecl-select ecl-select__multiple-toggle" id="filter-documentType-toggle" aria-expanded="false" aria-controls="filter-documentType-dropdown"> Select
+</button>
+
+4.2 second select speeches: <span>Speech</span>
+
+4.3 third select statements: <span>Statement</span>
+
+4.4 fourth apply filters: <button eclbutton="" variant="primary" class="ecl-button ecl-button--primary"><!----> Apply <!----><!----><!----></button>
+
+4. Commissioner: 3rd of 3 select menus that display the word "select". Select Commissioner by name or numerical code. Try both only keep what works. 
+<button type="button" class="ecl-select ecl-select__multiple-toggle" id="filter-commissioner-toggle" aria-expanded="false" aria-controls="filter-commissioner-dropdown"> Select
+</button>
+
+4.1 select commissioners from drop down menus.
+examples of commissioners in drop down menu:  
+<span>Ursula von der Leyen</span>
+<span>Henna Virkkunen</span>
+
+4.2 click apply: <button eclbutton="" variant="primary" class="ecl-button ecl-button--primary"><!----> Apply <!----><!----><!----></button>
+
+OPTIONAL if --policy area is included do steps 4.3, 4.3.1:
+
+4.3 OPTIONAL Select Policy Area: 2nd of 3 select menus that display the word "select". 
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--commissioner", required=True, help="Commissioner code (e.g. 2105)")
+    parser.add_argument("--commissioner-name", required=True, help="Commissioner name (e.g. Henna Virkkunen)")
+    parser.add_argument("--headed", action="store_true")
+    parser.add_argument("--start-date", help="Start date in DD-MM-YYYY format")
+    parser.add_argument("--end-date", help="End date in DD-MM-YYYY format")
+    parser.add_argument("--policy-area", help="Policy area name (e.g. 'Animal Welfare')")
+    args = parser.parse_args()
+    run(args.commissioner, args.commissioner_name, headless=not args.headed, start_date=args.start_date, end_date=args.end_date, policy_area=args.policy_area)
+
+4.3.1 enter policy area key word term (e.g. Antitrust, Artificial Intelligence, Bankinga nd financial services, Borders,...) 
+
+| Code            | Policy Area                                |
+| --------------- | ------------------------------------------ |
+| AGRURAL         | Agriculture and rural development          |
+| ANIWELFARE      | Animal Welfare                             |
+| ANTITRUST       | Antitrust                                  |
+| AI              | Artifical intelligence                     |
+| FINSTAB         | Banking and financial services             |
+| BORDER          | Borders                                    |
+| BREXIT          | Brexit                                     |
+| BUDFINPROG      | Budget                                     |
+| BUSINDUS        | Business and industry                      |
+| CLIMACTION      | Climate action                             |
+| REGIONAL        | Cohesion Policy                            |
+| JUNCKER-CABINET | Commission Juncker 2014 -2019              |
+| COMPETY         | Competition                                |
+| COMPETITIVE     | Competitiveness                            |
+| CONSUMPOL       | Consumers                                  |
+| CULTMED         | Culture and media                          |
+| CUSTOMS         | Customs                                    |
+| CYBER           | Cybersecurity                              |
+| DEFENCE         | Defence                                    |
+| DEMOCRACY       | Democracy                                  |
+| DEMOGRAPHY      | Demography                                 |
+| DIGAG           | Digital economy and society                |
+| DISINFO         | Disinformation                             |
+| ENLNEIG         | EU enlargement                             |
+| ECOMONAFF       | Economy, finance and the euro              |
+| ECMY            | Education and training                     |
+| ESAI            | Employment and social affairs              |
+| ENERGY          | Energy                                     |
+| ENVIRO          | Environment                                |
+| EQUALITY        | Equality                                   |
+| PR-GREENDEAL    | European Green Deal                        |
+| NEIGHB          | European neighbourhood policy              |
+| FOODSAF         | Food safety                                |
+| HREXTRELS       | Foreign affairs and security policy        |
+| GENINFO         | General information                        |
+| GLOBGA          | Global Gateway                             |
+| HOMEAFF         | Home affairs                               |
+| HOUSE           | Housing                                    |
+| ICHACR          | Humanitarian aid and civil protection      |
+| INTRELADM       | Institutional affairs                      |
+| INRELATION      | Interinstitutional relations and foresight |
+| DEVEL           | International partnerships                 |
+| JFRC            | Justice and fundamental rights             |
+| MARAFFISH       | Maritime affairs and fisheries             |
+| MED             | Mediterranean                              |
+| MERGERS         | Mergers                                    |
+| MIDDLE          | Middle East                                |
+| MIGR            | Migration and asylum                       |
+| NEBAUHAUS       | New European Bauhaus                       |
+| NGEU            | NextGenerationEU                           |
+| PRESIDENCY      | Presidency                                 |
+| HEALTHPOL       | Public health                              |
+| RECOVERY        | Recovery and Resilience Facility           |
+| STRUREF         | Reforms                                    |
+| RESINSC         | Research and innovation                    |
+| SECU            | Security                                   |
+| GROWTH          | Single market                              |
+| SPACE           | Space                                      |
+| SPORT           | Sport                                      |
+| STATAID         | State aid                                  |
+| SOTEU           | State of the Union                         |
+| TAXCUAA         | Taxation                                   |
+| TECH            | Technology                                 |
+| TRADEPOL        | Trade                                      |
+| TRANSPORT       | Transport                                  |
+| COP             | UN Climate Change Conference (COP)         |
+| UKRAINE         | Ukraine                                    |
+| VACC            | Vaccines                                   |
+| YOUTH           | Youth                                      |
+
+
+
+
+5. click filter: (Click this, <span _ngcontent-ng-c796800312="" eclbuttonlabel="" class="ecl-button__label">Filter</span>, after completing document type, skipping policy area, completing commissioner. This conducts the search.) 
+
+The scraper has now navigated to results page:
+Example: https://ec.europa.eu/commission/presscorner/home/en?dotyp=SPEECH,STATEMENT&commissioner=2105,881
+Note the two codes for two commissioner: 2105 for Henna Virkkunen and 881 for Ursula von der Leyen.
+
+6. Open first result:
+example of a result - scraper must recognise results of this type, not only this specific result. 
+<h3 _ngcontent-ng-c796800312="" class="ecl-list-item__title ecl-heading ecl-heading--h3" style="font-size: 18px; line-height: 25px;">Video message by President von der Leyen at the 4th EIB Group Forum</h3>
+
+here is another example of a result to recognise, click and follow next steps:
+ <h3 _ngcontent-ng-c796800312="" class="ecl-list-item__title ecl-heading ecl-heading--h3" style="font-size: 18px; line-height: 25px;">Statement by President von der Leyen with Swiss President Parmelin on the signature of a broad package of EU-Switzerland agreements</h3>
+
+
+7. Page of first result: https://ec.europa.eu/commission/presscorner/detail/en/speech_26_519
+
+7.1 click "print friendly pdf": <a _ngcontent-ng-c2898759143="" ecllink="" href="#" class="ecl-inpage-navigation__link ecl-link"> Print friendly pdf
+</a>
+
+7.2 click "download": <span _ngcontent-ng-c1460733924="" ecllinklabel="" id="ecl-file-th-link-label" class="ecl-link__label">Download</span>
+
+
+8. Go back to results page from step number 4. Click 2nd result and repeat steps 5, 6, 6.1, 6.2, 7.
+
+Complete the first page of results then...
+
+9. click "next" 
+<a _ngcontent-ng-c796800312="" title="Go to next page" class="ecl-pager__link">Next &gt;</a>
+
+10. repeat the procedure from the last page for all results on this page and all results on next pages until the next button disappears. 
+
+Finish procedure with all search result pdfs downloaded directly to an output directory defined as output_dir_[date of fetch]_[commissioner name]_[commissioner numerical code]_[speech/statement]_[date of speech]
+
+
+
+
+
+
+
+Code	Commissioner
+881   Ursula von der Leyen
+166   Valdis Dombrovskis
+183   Maroš Šefčovič
+982   Dubravka Šuica
+998   Olivér Várhelyi
+1881  Wopke Hoekstra
+2086  Maria Luís Albuquerque
+2087  Magnus Brunner
+2088  Raffaele Fitto
+2089  Christophe Hansen
+2090  Dan Jørgensen
+2091  Kaja Kallas
+2092  Andrius Kubilius
+2093  Marta Kos
+2094  Costas Kadis
+2095  Hadja Lahbib
+2096  Roxana Mînzatu
+2097  Michael McGrath
+2098  Glenn Micallef
+2099  Teresa Ribera
+2100  Jessika Roswall
+2101  Stéphane Séjourné
+2102  Jozef Síkela
+2103  Piotr Serafin
+2104  Apostolos Tzitzikostas
+2105  Henna Virkkunen
+2106  Ekaterina Zaharieva
+
+
+Example commands:
+
+python scraper.py --commissioner 998 --commissioner-name "Olivér Várhelyi" --start-date 05-02-2025 --end-date 25-06-2025 --policy-area "Animal Welfare" --headedHere’s a compiled set of example commands for your request:
+
+Description
+You want to scrape speeches and statements for the year 2025 for the following commissioners:
+
+Henna Virkkunen (2105)
+Kaja Kallas (2091)
+Raffaele Fitto (2088)
+Ursula von der Leyen (881)
+And for the following policy areas:
+
+Security
+Technology
+Defence
+Artifical intelligence
+Foreign affairs and security policy
+Competition
+Competitiveness
+Digital economy and society
+Global Gateway
+Space
+Cohesion Policy
+Each command will filter by commissioner, date range (01-01-2025 to 31-12-2025), policy area, and document types ("Speech" and "Statement").
+
+Example Commands
+Henna Virkkunen
+
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Security" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Technology" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Defence" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Artifical intelligence" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Foreign affairs and security policy" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competition" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competitiveness" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Digital economy and society" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Global Gateway" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Space" --headed
+python scraper.py --commissioner 2105 --commissioner-name "Henna Virkkunen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Cohesion Policy" --headed
+
+
+
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Security" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Technology" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Defence" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Artifical intelligence" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Foreign affairs and security policy" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competition" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competitiveness" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Digital economy and society" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Global Gateway" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Space" --headed
+python scraper.py --commissioner 2091 --commissioner-name "Kaja Kallas" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Cohesion Policy" --headed
+
+
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Security" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Technology" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Defence" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Artifical intelligence" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Foreign affairs and security policy" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competition" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competitiveness" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Digital economy and society" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Global Gateway" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Space" --headed
+python scraper.py --commissioner 2088 --commissioner-name "Raffaele Fitto" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Cohesion Policy" --headed
+
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Security" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Technology" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Defence" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Artifical intelligence" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Foreign affairs and security policy" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competition" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Competitiveness" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Digital economy and society" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Global Gateway" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Space" --headed
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Cohesion Policy" --headed
+
+
+FULL CODE
+
+import argparse
+import os
+import time
+from datetime import datetime
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+BASE_URL = "https://ec.europa.eu/commission/presscorner/home/en"
+
+# Full list of policy areas and codes
+POLICY_AREAS = {
+    "Agriculture and rural development": "AGRURAL",
+    "Animal Welfare": "ANIWELFARE",
+    "Antitrust": "ANTITRUST",
+    "Artifical intelligence": "AI",
+    "Banking and financial services": "FINSTAB",
+    "Borders": "BORDER",
+    "Brexit": "BREXIT",
+    "Budget": "BUDFINPROG",
+    "Business and industry": "BUSINDUS",
+    "Climate action": "CLIMACTION",
+    "Cohesion Policy": "REGIONAL",
+    "Commission Juncker 2014 -2019": "JUNCKER-CABINET",
+    "Competition": "COMPETY",
+    "Competitiveness": "COMPETITIVE",
+    "Consumers": "CONSUMPOL",
+    "Culture and media": "CULTMED",
+    "Customs": "CUSTOMS",
+    "Cybersecurity": "CYBER",
+    "Defence": "DEFENCE",
+    "Democracy": "DEMOCRACY",
+    "Demography": "DEMOGRAPHY",
+    "Digital economy and society": "DIGAG",
+    "Disinformation": "DISINFO",
+    "EU enlargement": "ENLNEIG",
+    "Economy, finance and the euro": "ECOMONAFF",
+    "Education and training": "ECMY",
+    "Employment and social affairs": "ESAI",
+    "Energy": "ENERGY",
+    "Environment": "ENVIRO",
+    "Equality": "EQUALITY",
+    "European Green Deal": "PR-GREENDEAL",
+    "European neighbourhood policy": "NEIGHB",
+    "Food safety": "FOODSAF",
+    "Foreign affairs and security policy": "HREXTRELS",
+    "General information": "GENINFO",
+    "Global Gateway": "GLOBGA",
+    "Home affairs": "HOMEAFF",
+    "Housing": "HOUSE",
+    "Humanitarian aid and civil protection": "ICHACR",
+    "Institutional affairs": "INTRELADM",
+    "Interinstitutional relations and foresight": "INRELATION",
+    "International partnerships": "DEVEL",
+    "Justice and fundamental rights": "JFRC",
+    "Maritime affairs and fisheries": "MARAFFISH",
+    "Mediterranean": "MED",
+    "Mergers": "MERGERS",
+    "Middle East": "MIDDLE",
+    "Migration and asylum": "MIGR",
+    "New European Bauhaus": "NEBAUHAUS",
+    "NextGenerationEU": "NGEU",
+    "Presidency": "PRESIDENCY",
+    "Public health": "HEALTHPOL",
+    "Recovery and Resilience Facility": "RECOVERY",
+    "Reforms": "STRUREF",
+    "Research and innovation": "RESINSC",
+    "Security": "SECU",
+    "Single market": "GROWTH",
+    "Space": "SPACE",
+    "Sport": "SPORT",
+    "State aid": "STATAID",
+    "State of the Union": "SOTEU",
+    "Taxation": "TAXCUAA",
+    "Technology": "TECH",
+    "Trade": "TRADEPOL",
+    "Transport": "TRANSPORT",
+    "UN Climate Change Conference (COP)": "COP",
+    "Ukraine": "UKRAINE",
+    "Vaccines": "VACC",
+    "Youth": "YOUTH"
+}
+
+def setup_driver(headless=True):
+    options = Options()
+    if headless:
+        options.add_argument("--headless=new")
+    options.add_argument("--window-size=1920,1080")
+    return webdriver.Chrome(options=options)
+
+def apply_filters(driver, commissioner_code, commissioner_name, start_date=None, end_date=None, policy_area=None):
+    wait = WebDriverWait(driver, 30)
+    driver.get(BASE_URL)
+
+    # Dismiss cookie banner
+    try:
+        cookie_btn = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, "//a[contains(text(), 'Accept all cookies')]")
+        ))
+        driver.execute_script("arguments[0].click();", cookie_btn)
+        time.sleep(1)
+    except Exception:
+        try:
+            cookie_btn = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, "//a[contains(text(), 'Accept only essential cookies')]")
+            ))
+            driver.execute_script("arguments[0].click();", cookie_btn)
+            time.sleep(1)
+        except Exception:
+            pass
+
+    # Optional date filter (type dates directly)
+    if start_date:
+        date_input_from = wait.until(EC.element_to_be_clickable((By.ID, "datepicker1")))
+        date_input_from.clear()
+        date_input_from.send_keys(start_date)
+        time.sleep(1)
+    if end_date:
+        date_input_to = wait.until(EC.element_to_be_clickable((By.ID, "datepicker2")))
+        date_input_to.clear()
+        date_input_to.send_keys(end_date)
+        time.sleep(1)
+
+    # Click "More criteria"
+    more_criteria_btn = wait.until(EC.element_to_be_clickable(
+        (By.XPATH, "//a[contains(text(), 'More criteria')]")
+    ))
+    driver.execute_script("arguments[0].click();", more_criteria_btn)
+    time.sleep(1)
+
+    # Document type: click first select (by ID)
+    doc_type_select = wait.until(EC.element_to_be_clickable((By.ID, "filter-documentType-toggle")))
+    driver.execute_script("arguments[0].click();", doc_type_select)
+    time.sleep(1)
+
+    # Tick "Speech" and "Statement" checkboxes
+    for label in ["Speech", "Statement"]:
+        try:
+            option = wait.until(EC.element_to_be_clickable((By.XPATH, f"//span[text()='{label}']")))
+            driver.execute_script("arguments[0].click();", option)
+            time.sleep(0.5)
+        except Exception:
+            print(f"Could not find or click option: {label}")
+
+    # Close document type dropdown
+    close_btns = driver.find_elements(By.XPATH, "//button[contains(@class, 'ecl-popover__close')]")
+    for btn in close_btns:
+        try:
+            btn.click()
+        except Exception:
+            pass
+
+    # Commissioner: click third select (by ID)
+    comm_select = wait.until(EC.element_to_be_clickable((By.ID, "filter-commissioner-toggle")))
+    driver.execute_script("arguments[0].click();", comm_select)
+    time.sleep(1)
+
+    # Select commissioner by code or name
+    try:
+        comm_option = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, f"//span[contains(text(), '{commissioner_name}')]")
+        ))
+    except Exception:
+        comm_option = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, f"//span[contains(text(), '{commissioner_code}')]")
+        ))
+    driver.execute_script("arguments[0].click();", comm_option)
+    time.sleep(0.5)
+
+    # Click "Apply" button inside the commissioner dropdown only
+    apply_btn = wait.until(EC.element_to_be_clickable(
+        (By.XPATH, "//div[@id='filter-commissioner-dropdown']//button[contains(@class, 'ecl-button--primary') and contains(., 'Apply')]")
+    ))
+    driver.execute_script("arguments[0].click();", apply_btn)
+    time.sleep(2)
+
+    # Policy area selection (inserted after commissioner selection, before filter)
+    if policy_area:
+        # Click second select menu for policy area
+        policy_select = wait.until(EC.element_to_be_clickable((By.ID, "filter-policy-toggle")))
+        driver.execute_script("arguments[0].click();", policy_select)
+        time.sleep(1)
+        # Tick the checkbox for the policy area
+        try:
+            option = wait.until(EC.element_to_be_clickable((By.XPATH, f"//span[text()='{policy_area}']")))
+            driver.execute_script("arguments[0].click();", option)
+            time.sleep(0.5)
+        except Exception:
+            print(f"Could not find or click policy area option: {policy_area}")
+        # Click "Apply" button inside the policy area dropdown
+        try:
+            apply_btn = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, "//div[@id='filter-policy-dropdown']//button[contains(@class, 'ecl-button--primary') and contains(., 'Apply')]")
+            ))
+            driver.execute_script("arguments[0].click();", apply_btn)
+            time.sleep(1)
+        except Exception:
+            print("Could not find or click Apply button for policy area.")
+
+    # Click "Filter" to conduct the search
+    filter_btn = wait.until(EC.element_to_be_clickable(
+        (By.XPATH, "//span[contains(text(), 'Filter')]/ancestor::button")
+    ))
+    driver.execute_script("arguments[0].click();", filter_btn)
+    time.sleep(2)
+
+def get_result_links(driver):
+    wait = WebDriverWait(driver, 20)
+    # Wait for the search result heading to appear
+    heading = wait.until(
+        EC.presence_of_element_located(
+            (By.XPATH, "//div[contains(@class, 'ecl-heading--h2') and contains(text(), 'Search result')]")
+        )
+    )
+    # Find all result links below the heading
+    result_links = []
+    # Find all h3 elements after the heading
+    h3s = driver.find_elements(By.XPATH,
+        "//div[contains(@class, 'ecl-heading--h2') and contains(text(), 'Search result')]/following::h3[contains(@class, 'ecl-list-item__title')]"
+    )
+    for h3 in h3s:
+        parent = h3.find_element(By.XPATH, "./ancestor::a[1]")
+        url = parent.get_attribute("href")
+        if url:
+            result_links.append(url)
+    return result_links
+
+def find_pdf_link(driver, detail_url):
+    wait = WebDriverWait(driver, 7)  # Shorter timeout
+    driver.get(detail_url)
+    # Try to click "Print friendly pdf" if present
+    try:
+        print_btn = wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//a[contains(text(), 'Print friendly pdf')]")
+        ))
+        driver.execute_script("arguments[0].click();", print_btn)
+        time.sleep(2)
+    except Exception:
+        pass
+    # Try to find "Download" link
+    try:
+        download_btn = WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+            (By.XPATH, "//span[contains(text(), 'Download')]/ancestor::a")
+        ))
+        pdf_url = download_btn.get_attribute("href")
+        return pdf_url
+    except Exception:
+        return None
+
+def download_pdf(pdf_url, out_path):
+    import requests
+    r = requests.get(pdf_url, timeout=60)
+    r.raise_for_status()
+    with open(out_path, "wb") as f:
+        f.write(r.content)
+
+def run(commissioner_code, commissioner_name, headless, start_date=None, end_date=None, policy_area=None):
+    # Commissioner directory
+    commissioner_dir = f"{commissioner_name}_{commissioner_code}"
+    os.makedirs(commissioner_dir, exist_ok=True)
+    # Policy area subdirectory
+    policy_area_str = policy_area.replace(" ", "_") if policy_area else "speech_statement"
+    policy_area_dir = os.path.join(commissioner_dir, policy_area_str)
+    os.makedirs(policy_area_dir, exist_ok=True)
+    # Date range subdirectory
+    date_range_str = f"{start_date}_to_{end_date}" if start_date and end_date else "all_dates"
+    output_dir = os.path.join(policy_area_dir, date_range_str)
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"[START] commissioner={commissioner_code} ({commissioner_name}), policy_area={policy_area}, date_range={date_range_str}")
+    driver = setup_driver(headless)
+    try:
+        apply_filters(driver, commissioner_code, commissioner_name, start_date, end_date, policy_area)
+        page = 1
+        total_downloaded = 0
+        results_url = driver.current_url
+        while True:
+            links = get_result_links(driver)
+            print(f"Found {len(links)} detail links on page {page}")
+            print(f"Links found on page {page}:")
+            for l in links:
+                print(l)
+            for idx, detail_url in enumerate(links, 1):
+                print(f"Opening: {detail_url}")
+                # Use a separate driver for detail pages
+                detail_driver = setup_driver(headless=True)
+                pdf_url = find_pdf_link(detail_driver, detail_url)
+                if pdf_url:
+                    filename = f"{commissioner_code}_p{page}_{idx}.pdf"
+                    out_path = os.path.join(output_dir, filename)
+                    download_pdf(pdf_url, out_path)
+                    print(f"Downloaded: {filename}")
+                    total_downloaded += 1
+                else:
+                    print("No PDF link found")
+                detail_driver.quit()
+                time.sleep(1)
+            # DO NOT reload results_url here!
+            # Click "Next" for pagination (only once per page)
+            try:
+                next_btn = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'ecl-pager__link') and contains(text(), 'Next')]"))
+                )
+                print("Next button found, clicking...")
+                driver.execute_script("arguments[0].click();", next_btn)
+                page += 1
+                WebDriverWait(driver, 30).until(EC.staleness_of(next_btn))
+                WebDriverWait(driver, 30).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, ".ecl-list-item__title"))
+                )
+                time.sleep(2)
+                results_url = driver.current_url
+            except Exception as e:
+                print(f"No Next button found or not clickable on page {page}. Stopping. Exception: {e}")
+                break
+    finally:
+        driver.quit()
+    print(f"[DONE] Total PDFs downloaded: {total_downloaded}")
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--commissioner", required=True, help="Commissioner code (e.g. 2105)")
+    parser.add_argument("--commissioner-name", required=True, help="Commissioner name (e.g. Henna Virkkunen)")
+    parser.add_argument("--headed", action="store_true")
+    parser.add_argument("--start-date", help="Start date in DD-MM-YYYY format")
+    parser.add_argument("--end-date", help="End date in DD-MM-YYYY format")
+    parser.add_argument("--policy-area", help="Policy area name (e.g. 'Animal Welfare')")
+    args = parser.parse_args()
+    run(args.commissioner, args.commissioner_name, headless=not args.headed, start_date=args.start_date, end_date=args.end_date, policy_area=args.policy_area)
+
+if __name__ == "__main__":
+    main()
+
