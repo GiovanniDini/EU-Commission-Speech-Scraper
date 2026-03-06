@@ -29,7 +29,37 @@ Install dependencies:
 ```powershell
 pip install selenium requests
 ```
+Install environment
+---
 
+## Terminal Environment
+
+You can run the scraper from:
+
+- **Windows Command Prompt** (`cmd`)
+- **Windows PowerShell**
+- **macOS Terminal**
+- **Linux Terminal**
+- **VS Code integrated terminal**
+
+Make sure:
+- Python is installed and available in your PATH.
+- ChromeDriver is installed and available in your PATH.
+- You are in the project directory (where `scraper.py` and `run_parallel.py` are located).
+
+**Example (Windows):**
+```powershell
+cd "C:\Users\xxx\\Desktop\EU Politics Paper\selenium scraper"
+python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
+```
+
+**Example (macOS/Linux):**
+```bash
+cd ~/Desktop/EU\ Politics\ Paper/selenium\ scraper
+python3 scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
+```
+
+---
 ---
 
 ## Usage
