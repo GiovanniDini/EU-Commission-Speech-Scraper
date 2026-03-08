@@ -1,5 +1,8 @@
 # Instructions for Non-Coders: Setting Up and Running the European Commission Press Corner Scraper
 
+
+*********Unless otherwise stated, all downloadable files are found in this gibhb page (EU-Commission-Speech-Scraper).************
+
 ---
 
 ## 1. Install Python
@@ -58,11 +61,11 @@
 
 ---
 
-## 8. Run the Scraper
+## 8. Run the Scraper --- Top Tip!!! Do not use Ursula von der Leyen to test the scraper - use someone with less speeches like "Stéphane Séjourné" "Jozef Síkela"  "Piotr Serafin"
 
 - To run for a single commissioner, type:
   ```bash
-  python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
+  python scraper.py --commissioner 881 --commissioner-name "Henna Virkunnen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
   ```
 - To run for multiple commissioners in parallel, type:
   ```bash
@@ -83,6 +86,7 @@
 - If you see errors about ChromeDriver, make sure `chromedriver.exe` is in your scraper folder.
 - If you see errors about Python, make sure you installed Python and added it to PATH.
 - If you see errors about missing packages, repeat step 7.
+- Ask co-pilot for assistance if needed
 
 ---
 
