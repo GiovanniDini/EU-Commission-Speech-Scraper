@@ -1,8 +1,25 @@
-If the scraper doesn't work, here's how I built mine on VS Code, with Co-pilot running ChatGPT-4.1 . 0X
+
+
+Use the file "Instructions for Non-Coders" for the simplest path to a working web scraper. 
+
+If that doesn't work, navigate to "FULL CODE" on this page, copy and paste it into co-pilot and have it guide you through the set up.
+
+Failing that, here's how I built the scraper on VS Code, with Co-pilot running ChatGPT-4.1 . Copy and paste  
+
+
+Prompt for chatgpt, copy and paste until the "END OF PROMPT" message below. Paste into co-pilot and it should build something very similar to what I built. 
+
+
+
+T*******************START OF CO-PILOT PROMPT******************
+
+
+
+Execute the following instructions to build a web scraper to download pdfs in bulk from a specific website and according to search categories:
 
 
 Page: https://ec.europa.eu/commission/presscorner/home/en
-Cookie banner to disable or select accept only essential cookies. 
+Cookie banner: to disable or select accept only essential cookies. 
 
 <div class="wt-cck--wrapper">
         <div class="wt-cck--content">
@@ -17,7 +34,7 @@ Cookie banner to disable or select accept only essential cookies.
         </div>
       </div>
 
-1. Select From and type date.
+1. Select "From" and type date.
 <input _ngcontent-ng-c796800312="" id="datepicker1" ecltextinput="" ecldatepicker="" formcontrolname="datepickerAfter" format="DD-MM-YYYY" eclsize="l" placeholder="DD-MM-YYYY" class="ng-valid ecl-datepicker__field ecl-text-input ecl-text-input--l ng-touched ng-dirty" type="text" fdprocessedid="4e0o2" aria-label="Use the arrow keys to pick a date">
 
 2. Select "To" (datepicker2) and type date.
@@ -142,7 +159,7 @@ def main():
 
 
 
-5. click filter: (Click this, <span _ngcontent-ng-c796800312="" eclbuttonlabel="" class="ecl-button__label">Filter</span>, after completing document type, skipping policy area, completing commissioner. This conducts the search.) 
+5. click filter: (Click this, <span _ngcontent-ng-c796800312="" eclbuttonlabel="" class="ecl-button__label">Filter</span>, after completing document type, completing commissioner and policy area (if specified). This conducts the search.) 
 
 The scraper has now navigated to results page:
 Example: https://ec.europa.eu/commission/presscorner/home/en?dotyp=SPEECH,STATEMENT&commissioner=2105,881
@@ -164,7 +181,7 @@ here is another example of a result to recognise, click and follow next steps:
 7.2 click "download": <span _ngcontent-ng-c1460733924="" ecllinklabel="" id="ecl-file-th-link-label" class="ecl-link__label">Download</span>
 
 
-8. Go back to results page from step number 4. Click 2nd result and repeat steps 5, 6, 6.1, 6.2, 7.
+8. Go back to results page from step number 4. Click 2nd result and repeat steps 5, 6, 6.1, 6.2, 7, 7.1, 7.2
 
 Complete the first page of results then...
 
@@ -214,6 +231,19 @@ Code	Commissioner
 Example commands:
 
 python scraper.py --commissioner 998 --commissioner-name "Olivér Várhelyi" --start-date 05-02-2025 --end-date 25-06-2025 --policy-area "Animal Welfare" --headedHere’s a compiled set of example commands for your request:
+
+
+
+
+
+
+
+
+
+*******************END OF CO-PILOT PROMPT******************END OF PROMPT*******************END OF CO-PILOT PROMPT****************** *******************END OF CO-PILOT PROMPT****************** *******************END OF CO-PILOT PROMPT******************  
+
+
+Some useful bits and pieces: 
 
 Description
 You want to scrape speeches and statements for the year 2025 for the following commissioners:
@@ -292,7 +322,12 @@ python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" 
 python scraper.py --commissioner 881 --commissioner-name "Ursula von der Leyen" --start-date 01-01-2025 --end-date 31-12-2025 --policy-area "Cohesion Policy" --headed
 
 
-FULL CODE
+
+
+
+**************FULL CODE BELOW********************FULL CODE BELOW**************************FULL CODE BELOW**************FULL CODE BELOW**************FULL CODE BELOW**************FULL CODE BELOW**************
+
+
 
 import argparse
 import os
