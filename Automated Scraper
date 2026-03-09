@@ -1,0 +1,161 @@
+Description:
+Automates scraping and downloading PDFs for EU Commission speeches/statements.
+
+Runs for all commissioners.
+Lets you specify the start date for automation with --start-date (DD-MM-YYYY).
+Sends email notifications for new downloads.
+Only processes items from the specified date.
+
+How it differs from scraper.py:
+scraper.py is manual: run for a single commissioner and date range.
+auto_scraper_notify.py is automated: runs for all commissioners, logs downloads, sends notifications, and allows date control.
+Usage:
+
+Activate your Python environment.
+Run: python auto_scraper_notify.py --start-date DD-MM-YYYY
+Replace DD-MM-YYYY with your desired date.
+Check your email for notifications.
+Requirements:
+
+Python 3.x
+SMTP server configured for email notifications
+All dependencies from requirements.txt
+
+
+
+***************Start of Code***************Start of Code***************Start of Code***************Start of Code***************Start of Code***************
+COPY AND PASTE THE FOLLOWING THEN RUN COMMAND: python auto_scraper_notify.py --start-date DD-MM-YYYY
+
+import os
+import subprocess
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
+import json
+
+# Commissioners list from run_parallel.py
+commissioners = [
+    ("881", "Ursula von der Leyen"),
+    ("166", "Valdis Dombrovskis"),
+    ("183", "Maroš Šefčovič"),
+    ("982", "Dubravka Šuica"),
+    ("998", "Olivér Várhelyi"),
+    ("1881", "Wopke Hoekstra"),
+    ("2086", "Maria Luís Albuquerque"),
+    ("2087", "Magnus Brunner"),
+    ("2088", "Raffaele Fitto"),
+    ("2089", "Christophe Hansen"),
+    ("2090", "Dan Jørgensen"),
+    ("2091", "Kaja Kallas"),
+    ("2092", "Andrius Kubilius"),
+    ("2093", "Marta Kos"),
+    ("2094", "Costas Kadis"),
+    ("2095", "Hadja Lahbib"),
+    ("2096", "Roxana Mînzatu"),
+    ("2097", "Michael McGrath"),
+    ("2098", "Glenn Micallef"),
+    ("2099", "Teresa Ribera"),
+    ("2100", "Jessika Roswall"),
+    ("2101", "Stéphane Séjourné"),
+    ("2102", "Jozef Síkela"),
+    ("2103", "Piotr Serafin"),
+    ("2104", "Apostolos Tzitzikostas"),
+    ("2105", "Henna Virkkunen"),
+    ("2106", "Ekaterina Zaharieva"),
+]
+
+LOG_FILE = "downloaded_log.json"
+EMAIL = "gdini@ibei.org"
+
+# Helper: load log
+def load_log():
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+# Helper: save log
+def save_log(log):
+    with open(LOG_FILE, "w", encoding="utf-8") as f:
+        json.dump(log, f, indent=2)
+
+# Helper: send email
+def send_email(subject, body):
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = EMAIL
+    msg["To"] = EMAIL
+    # SMTP config: update with your SMTP server details
+    with smtplib.SMTP("localhost") as server:
+        server.sendmail(EMAIL, [EMAIL], msg.as_string())
+
+# Run scraper for all commissioners
+def run_scraper():
+    new_items = []
+    log = load_log()
+    today = datetime.now().strftime("%Y%m%d")
+    for code, name in commissioners:
+        output_dir = f"output_dir_{today}_{name}_{code}_speech_statement"
+        if not os.path.exists(output_dir):
+            continue
+        for fname in os.listdir(output_dir):
+            if fname.endswith(".pdf"):
+                # Only log speeches posted today (filename contains today's date)
+                if today in fname:
+                    key = f"{name}|{fname}"
+                    if key not in log:
+                        title = fname
+                        new_items.append((name, title))
+                        log[key] = today
+    save_log(log)
+    return new_items
+
+# Main: run scraper and notify
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--start-date", help="Start date for automation in DD-MM-YYYY format (default: today)")
+    args = parser.parse_args()
+
+    log = load_log()
+    # Use provided start date or default to today
+    if args.start_date:
+        start_date_ddmmyyyy = args.start_date
+        # Convert to YYYYMMDD for output_dir naming
+        try:
+            dt = datetime.strptime(args.start_date, "%d-%m-%Y")
+            today = dt.strftime("%Y%m%d")
+        except Exception:
+            print("Invalid date format. Use DD-MM-YYYY.")
+            exit(1)
+    else:
+        today = datetime.now().strftime("%Y%m%d")
+        start_date_ddmmyyyy = datetime.now().strftime("%d-%m-%Y")
+
+    for code, name in commissioners:
+        output_dir = f"output_dir_{today}_{name}_{code}_speech_statement"
+        expected_new = False
+        if not os.path.exists(output_dir):
+            expected_new = True
+        else:
+            for fname in os.listdir(output_dir):
+                if fname.endswith(".pdf"):
+                    key = f"{name}|{fname}"
+                    if key not in log:
+                        expected_new = True
+                        break
+        if expected_new:
+            subprocess.run([
+                "python", "scraper.py",
+                "--commissioner", code,
+                "--commissioner-name", name,
+                "--start-date", start_date_ddmmyyyy,
+                "--end-date", start_date_ddmmyyyy
+            ])
+    # Check for new downloads
+    new_items = run_scraper()
+    if new_items:
+        body = ""
+        for name, title in new_items:
+            body += f"Commissioner: {name}\nTitle: {title}\n\n"
+        send_email("New Speech/Statement PDFs Downloaded", body)
