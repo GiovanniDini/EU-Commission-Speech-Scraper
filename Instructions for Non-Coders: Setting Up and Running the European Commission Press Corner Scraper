@@ -1,7 +1,7 @@
-# Instructions for Non-Coders: Setting Up and Running the European Commission Press Corner Scraper
+# Instructions for Non-Coders: The simplest way to set up and run the European Commission Press Corner Scraper
 
 
-*********Unless otherwise stated, all downloadable files are found in this gibhb page (EU-Commission-Speech-Scraper).************
+*********Unless otherwise stated, all downloadable files are found in this github page (EU-Commission-Speech-Scraper).************
 
 ---
 
@@ -61,7 +61,7 @@
 
 ---
 
-## 8. Run the Scraper --- Top Tip!!! Do not use Ursula von der Leyen to test the scraper - use someone with less speeches like "Stéphane Séjourné" "Jozef Síkela"  "Piotr Serafin"
+## 8. Run the Scraper --- Top Tip!!! Do not use Ursula von der Leyen to test the scraper, unless you're using less than one year intervals - use someone with less speeches like "Stéphane Séjourné" "Jozef Síkela"  "Piotr Serafin"
 
 - To run for a single commissioner, type:
   ```bash
@@ -72,6 +72,7 @@
   python run_parallel.py --include "Ursula von der Leyen" "Henna Virkkunen" --start-date 01-03-2026 --end-date 07-03-2026 --policy-area "Climate action" --headed
   ```
 
+To add or take away commissioners/policy areas/dates input command like the one above into co-pilot and ask for a return of a command commands with different variables. You can also ask it for e.g. "create commands like this "example command here" for  commissioner x, y, z.. and date range a; "date range b etc; policy area a; policy area b etc..." 
 ---
 
 ## 9. Find Your Downloads
